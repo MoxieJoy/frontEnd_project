@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+    /*header begin*/
+
+/*导航栏左边*/
+.h-nav{background: #F2F2F2;border-bottom: 1px solid #999;}
+.h-nav .nav-content{width: 1260px;height: 32px;margin: auto;}
+.h-nav .nav-content .fl{color: #666;line-height: 32px;font-size: 12px;}
+.h-nav .nav-content .fl > a:hover{color: #FF0036;}
+/*导航栏左边*/
+
+/*导航栏右边*/
+.h-nav .nav-content .fr .menu-1 > li{display: inline-block;padding: 0 10px;line-height: 32px;color: #666;font-size: 12px;}
+.h-nav .nav-content .fr .menu-1 > li i{color: #FF0036;font-size: 13px;margin-right: 3px;}
+.h-nav .nav-content .fr .menu-1 .menu-2:before{content: "";float: right;width: 0;height: 0;border: 3px solid transparent;border-top-color: #666; border-bottom: none;margin: 15px 0 0 3px;}
+.h-nav .nav-content .fr .menu-1 .menu-2{position: relative;z-index: 999;}
+.h-nav .nav-content .fr .menu-1 .menu-3{position: absolute;display: none; width: 75px;border: 1px solid #ccc;padding: 5px 10px;line-height: 20px;left: -1px;z-index: 99;}
+.h-nav .nav-content .fr .menu-1 .menu-4{position: absolute;display: none; width: 60px;border: 1px solid #ccc;padding: 5px 10px;line-height: 20px;left: -1px;z-index: 99;}
+.h-nav .nav-content .fr .menu-1 .menu-5{position: absolute;display: none; width: 140px;border: 1px solid #ccc;padding: 5px 10px;line-height: 20px;right: -1px;z-index: 99;}
+.h-nav .nav-content .fr .menu-1 .menu-6{position: absolute;display: none; width: 1200px;border: 1px solid #ccc;padding: 30px 25px;line-height: 20px;right: -1px;z-index: 99;}
+.h-nav .nav-content .fr .menu-1 .menu-5 a{display: inline-block;padding: 0 10px;}
+.h-nav .nav-content .fr .menu-1 menu-2:hover .h-nav .nav-content .fr .menu-1 .menu-3{display: block;}
+.h-nav .nac-content .fr .menu-1 .menu-2:hover{background-color: #fff;border: 1px solid transparent;}
+.h-nav .nav-content .fr .menu-1 .nav-line{padding: 0;}
+.h-nav .nav-content .fr .menu-1 .menu-6 a{display: inline-block;width: 85px;margin-top: 15px;}
+.h-nav .nav-content .fr .menu-1 .menu-6 .menu-hot{float: left;width: 270px;border-right: 1px solid #ccc;}
+.h-nav .nav-content .fr .menu-1 .menu-6 .menu-market{float: left;width: 351px;height: 197px; border-right: 1px solid #ccc;padding: 0 25px;}
+.h-nav .nav-content .fr .menu-1 .menu-6 .menu-brand{float: left;width: 263px;height: 197px; padding: 0 25px;border-right: 1px solid #ccc;}
+.h-nav .nav-content .fr .menu-1 .menu-6 .menu-help a{display: block;width:auto;line-height: 10px;}
+.h-nav .nav-content .fr .menu-1 .menu-6 .menu-help{float: left;width: 150px;padding: 0 25px;}
+.h-nav .nav-content .fr .menu-1 .menu-5 ul{padding-bottom: 10px;border-bottom:1px dashed #ccc;}
+.h-nav .nav-content .fr .menu-1 > li a:hover{color: #ff0036;}
+.h-nav .nav-content .fr .menu-1  .menu-2:hover:before{transform:rotate(180deg);transition:0.2s;}
+.h-nav .nav-content .fr .menu-1 .menu-2:hover{background-color: white;}
+.h-nav .nav-content .fr .menu-1 .menu-2:hover .menu-3{display: block;border-top: 1px solid #fff;background-color: #fff;}
+.h-nav .nav-content .fr .menu-1 .menu-2:hover .menu-4{display: block;border-top: 1px solid #fff;background-color: #fff;}
+.h-nav .nav-content .fr .menu-1 .menu-2:hover .menu-5{display: block;border-top: 1px solid #fff;background-color: #fff;}
+.h-nav .nav-content .fr .menu-1 .menu-2:hover .menu-6{display: block;border-top: 1px solid #fff;background-color: #fff;}
+/*导航栏右边*/
+    /*header end*/
