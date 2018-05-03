@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>读取照片信息</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #888;
+            display: flex;
+        }
+
+        .box {
+            width: 700px;
+            height: 300px;
+            margin: auto;
+            border: 3px dashed #ccc;
+            text-align: center;
+            line-height: 300px;
+            font-size: 30px;
+            color: #ccc;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        请把图片拖入此处
+    </div>
+
+    <script>
+        let box = document.querySelector(".box");
+
+        box.ondragover = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        box.ondrop = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            let pic_info = e.dataTransfer.files[0];
+
+            if (/image/.test(pic_info.type)) {
+                let b = new Blob([pic_info], {
+                    type: pic_info.type
+                });
+                let url = window.URL.createObjectURL(b);
+                let img = new Image();
+                img.src = url; // 得到文件二进制字符串数据
+                img.width = 200;
+                img.height = 150;
+                img.onload = function() {
+                    box.appendChild(img);
+                }
+            }
+
+            //            let rander = new FileReader(); //创建文件分析对象
+            //            rander.readAsDataURL(pic_info);
+            //            rander.onload = function() {
+            //                //this.result 就是分析结果，是base64的格式
+            //                console.log(this.result);
+            //                let img = new Image();
+            //                img.src = this.result;
+            //                img.onload = function() {
+            //                    box.appendChild(img);
+            //                }
+            //            }
+
+
+
+        }
+
+    </script>
+
+</body>
+
+</html>

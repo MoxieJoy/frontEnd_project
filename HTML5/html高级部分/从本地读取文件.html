@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>本地读取文件</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: rgb(241, 241, 241);
+            display: flex;
+        }
+
+        div.readFile {
+            margin: auto;
+            width: 1000px;
+            height: auto;
+            min-height: 570px;
+            background: #fff;
+            border-radius: 10px;
+
+        }
+
+        div.readFile>p {
+            width: 100%;
+            height: 70px;
+            line-height: 70px;
+            text-align: center;
+            color: rgb(153, 172, 172);
+            font-size: 24px;
+            border-bottom: 1px solid #f2f2f2;
+        }
+
+        .pic_upload {
+            width: 960px;
+            height: 160px;
+            margin: 20px;
+            margin-bottom: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .pic_upload>div {
+            height: 100%;
+            background-color: rgb(241, 241, 241);
+
+        }
+
+        .pic_upload .choose {
+            width: 260px;
+            position: relative;
+        }
+
+        .pic_upload .drag {
+            width: 675px;
+        }
+
+        .pic_upload .drag>p {
+            line-height: 160px;
+            font-size: 18px;
+            color: #999;
+            text-align: center;
+        }
+
+        .pic_upload .choose .logo {
+            display: block;
+            width: 85px;
+            height: 85px;
+            margin: 20px auto;
+        }
+
+        .pic_upload .choose_btn {
+            width: 100%;
+            height: 40px;
+            background: rgba(107, 195, 13);
+            border: none;
+            color: white;
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+
+        .middle {
+            width: 960px;
+            height: 90px;
+            margin: 0 auto;
+        }
+
+
+        .middle .img_info {
+            display: inline-block;
+            width: auto;
+            line-height: 90px;
+            float: left;
+        }
+
+        .middle::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .middle>button {
+            width: 130px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 18px;
+            float: right;
+            margin: 25px 0 0 15px;
+        }
+
+        .middle>button.more_pic {
+            background-color: rgb(159, 159, 159);
+        }
+
+        .middle>button.start {
+            background-color: rgb(107, 195, 13);
+        }
+
+        .pic_area {
+            width: 960px;
+            height: auto;
+            min-height: 205px;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+            list-style: none;
+        }
+
+        .pic_area::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .pic_area li {
+            float: left;
+            margin: 0 5px 5px;
+            width: 180px;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pic_area li>img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .pic_area li .pic_fun {
+            width: 100%;
+            height: 30px;
+            background-color: rgba(0, 0, 0, .4);
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: opacity 0.8s;
+            opacity: 0;
+            transform: rotateZ(0);
+        }
+
+        .pic_area li .pic_fun:hover {
+            opacity: 1;
+        }
+
+        .pic_area li .pic_fun .pic_name {
+            display: inline-block;
+            color: white;
+            width: 130px;
+            line-height: 30px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .pic_area li .pic_fun .delete {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            float: right;
+        }
+
+        .pic_area li .pic_fun .delete img {
+            width: 20px;
+            height: 20px;
+            margin: 5px;
+        }
+
+
+        .pic_area li .pic_fun .delete:hover {
+            background-color: #ff0036;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="readFile">
+        <p>图片拖拽上传</p>
+        <div class="pic_upload">
+            <div class="choose">
+                <img class="logo" src="./img/pic.png" alt="">
+                <button class="choose_btn" id="choose_btn">选择图片</button>
+                <input type="file" id="choose_file" style="display: none" onclick="get_file();">
+            </div>
+            <div class="drag" id="drag_box">
+                <p>请将此图片拖到此区域</p>
+            </div>
+        </div>
+
+        <div class="middle">
+            <p class="img_info" id="img_info">
+                已选中0张图片，共0MB
+            </p>
+
+            <button class="start">开始上传</button>
+            <button class="more_pic">继续选择</button>
+        </div>
+
+        <ul class="pic_area" id="pic_area">
+        </ul>
+    </div>
+
+
+    <script>
+        let num = 0; //图片的数量
+        let size = {}; //图片的总共大小
+
+        function create_id() {
+            let arr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'a', 'b', 'c', 'd', 'e'];
+            let str = "";
+            for (let i = 0; i < 5; i++) {
+                str += arr[Math.floor(Math.random() * 15)];
+            }
+
+            return str;
+        }
+
+        //选择图片按钮
+        let choose_btn = document.querySelector("#choose_btn");
+        let real_choose = document.querySelector("#choose_file");
+        let img_info = document.querySelector("#img_info");
+        let pic_area = document.getElementById("pic_area");
+        let drag_box = document.getElementById("drag_box");
+        choose_btn.onclick = () => {
+            real_choose.click();
+        }
+
+        //选择添加图片
+        function get_file() {
+            let file = document.getElementById("choose_file").files[0];
+            if (file != undefined) {
+                if (/image/.test(file.type)) {
+                    let b = new Blob([file], {
+                        type: file.type
+                    });
+                    let url = window.URL.createObjectURL(b);
+                    create_pic(url, file.name, file.size);
+                }
+
+            }
+
+        }
+
+        //将图片添加到底部
+        function create_pic(pic_url, name, pic_size) {
+            let the_id = create_id();
+            size[the_id] = pic_size;
+            num++;
+            //            console.log(size);
+            let str = `<li id="${the_id}">
+                            <div class="pic_fun">
+                                <span class="pic_name">${name}</span>
+                                <span class="delete" onclick = "delete_pic(this)"><img src="./img/del.png" alt=""></span>
+                            </div>
+                            <img src="${pic_url}" alt="">
+                        </li>`
+
+            pic_area.innerHTML += str;
+            set_info();
+        }
+
+        //更改图片信息
+        function set_info() {
+            let allSize = 0;
+            for (let key in size) {
+                allSize += parseInt(size[key]);
+            }
+            let str = `已选中 ${num} 张图片，共 ${(allSize/1024/1024).toFixed(2)} MB`;
+            img_info.innerHTML = str;
+        }
+
+        drag_box.ondragover = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        drag_box.ondragenter = function() {
+            drag_box.children[0].innerHTML = "松开鼠标";
+        }
+
+        //拖动添加图片
+        drag_box.ondrop = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            let files = e.dataTransfer.files;
+            files = Array.from(files);
+            files.forEach((val) => {
+                if (/image/.test(val.type)) {
+                    let b = new Blob([val], {
+                        type: val.type
+                    });
+                    let url = window.URL.createObjectURL(b);
+                    create_pic(url, val.name, val.size);
+                }
+            });
+        }
+
+
+        //删除图片事件
+        function delete_pic(obj) {
+            let box = obj.parentNode.parentNode;
+            let box_id = box.id;
+            delete size[box_id];
+            set_info();
+            pic_area.removeChild(box);
+
+        }
+    </script>
+</body>
+
+</html>

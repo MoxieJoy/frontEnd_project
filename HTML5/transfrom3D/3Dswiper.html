@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D轮播图</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            perspective: 500px;
+            perspective-origin: center;
+        }
+
+        .box {
+            width: 800px;
+            height: 450px;
+            /*            border: 1px solid red;*/
+            margin: auto;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            transform-style: preserve-3d;
+
+        }
+
+        .box li {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 1%;
+            position: relative;
+            transition: transform 1s;
+            transform-style: preserve-3d;
+            transform-origin: center center -225px;
+            flex: 1;
+            transform: translateZ(0);
+
+        }
+
+        .box li div {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        .box li div img {
+            width: 800px;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .box li div:nth-child(1) {
+            top: -100%;
+            left: 0;
+            transform-origin: center bottom;
+            transform: rotatex(90deg);
+        }
+
+        .box li div:nth-child(2) {
+            top: 100%;
+            left: 0;
+            transform-origin: center top;
+            transform: rotatex(-90deg);
+        }
+
+        .box li div:nth-child(3) {
+            top: 0;
+            left: 0;
+            transform: translateZ(-450px);
+        }
+
+        .box li div:nth-child(4) {
+            top: 0;
+            left: 0;
+        }
+
+        .box:hover li {
+            transform: rotatex(90deg);
+        }
+
+    </style>
+</head>
+
+<body>
+    <ul class="box" id="box">
+
+    </ul>
+
+    <script>
+        let obox = document.getElementById("box");
+        let part = 100;
+        let li_list = "";
+        let temp = "<li><div></div><div></div><div></div><div></div></li>";
+        for (let i = 0; i < part; i++) {
+            li_list += temp;
+        }
+        obox.innerHTML = li_list;
+
+        let oli = document.querySelectorAll("#box li");
+
+        let step = box.clientWidth / 100;
+        oli.forEach((val, idx) => {
+            let arr = val.childNodes;
+            val.style.transition = "1s " + idx * 0.002 + "s linear";
+            for (let i = 0; i < 4; i++) {
+                let url_num = i + 1;
+                arr[i].style.background = "url(./images/0" + url_num + ".jpg)";
+                arr[i].style.backgroundSize = "800px 450px";
+                arr[i].style.backgroundPositionX = -idx * step + "px";
+            }
+        });
+
+    </script>
+</body>
+
+</html>

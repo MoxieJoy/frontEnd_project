@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>radio</title>
+    <style>
+        body {
+            background: #15131E;
+        }
+
+
+        @keyframes move {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .bg {
+            display: flex;
+            border-radius: 50%;
+            width: 500px;
+            height: 500px;
+            background: repeating-radial-gradient( transparent 85%, green 30%, transparent, transparent, transparent, transparent, transparent);
+
+        }
+
+        p {
+            margin: 0;
+            width: 500px;
+            height: 250px;
+            background: linear-gradient(90deg, transparent 45%, rgba(0, 150, 0, 0.7));
+            border-radius: 50% /100% 100% 0 0;
+            transform-origin: center bottom;
+        }
+
+        .go {
+            animation: move 8s linear infinite;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="bg">
+        <p class="go"></p>
+    </div>
+    <script src="1.js"></script>
+</body>
+
+</html>

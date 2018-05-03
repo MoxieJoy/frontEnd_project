@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>线性渐变</title>
+    <style>
+        body {
+            counter-reset: num;
+        }
+
+        .box {
+            width: 820px;
+            border: 1px solid #ccc;
+            margin: 50px auto;
+        }
+
+        .box::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .box div {
+            width: 150px;
+            height: 150px;
+            border: 1px solid;
+            float: left;
+            margin: 0 10px 10px 0;
+            position: relative;
+        }
+
+        .box div::after {
+            content: counter(num);
+            counter-increment: num;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #ccc;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            text-align: center;
+            font-size: 16px;
+            line-height: 20px;
+            color: red;
+        }
+
+        .box div:nth-child(1) {
+            background: linear-gradient(red, blue);
+        }
+
+        .box div:nth-child(3) {
+            background: linear-gradient(45deg, red, blue);
+        }
+
+        .box div:nth-child(2) {
+            background: linear-gradient(green, red, blue);
+        }
+
+        .box div:nth-child(4) {
+            background: linear-gradient(to right, green, red, blue);
+        }
+
+        .box div:nth-child(5) {
+            background: linear-gradient(to top right, green, red, blue);
+        }
+
+        .box div:nth-child(6) {
+            background: linear-gradient(to right, green, red, blue);
+        }
+
+        .box div:nth-child(7) {
+            background: linear-gradient(to right, green 50px, red 100px, blue 150px);
+        }
+
+        .box div:nth-child(8) {
+            background: linear-gradient(to right, red 30%, blue);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+</body>
+
+</html>

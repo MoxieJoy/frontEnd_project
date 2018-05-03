@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时钟</title>
+    <style>
+        html,
+        body {
+            display: flex;
+            background-color: #232425;
+            width: 100%;
+            height: 100%;
+        }
+
+        .box {
+            width: 360px;
+            height: 360px;
+            border: 10px solid #ccc;
+            margin: 100px auto 0;
+            border-radius: 50%;
+            box-shadow: inset 0 0 13px 2px #868484;
+            background: #E4E4E4;
+            position: relative;
+        }
+
+        .middle {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 50px;
+            height: 50px;
+            background: #B6B6B6;
+            border-radius: 50%;
+            position: absolute;
+            top: calc((360px - 50px) / 2);
+            left: calc((360px - 50px) /2);
+        }
+
+
+        .hour div {
+            width: 12px;
+            height: 110px;
+            background: #888888;
+            position: absolute;
+            bottom: 25px;
+            left: calc( (50px - 12px) /2);
+            transform-origin: center bottom;
+
+        }
+
+        .hour div::after {
+            content: "";
+            position: absolute;
+            left: 0px;
+            top: -11px;
+            width: 0;
+            height: 0;
+            border-bottom: 12px solid #888;
+            border-right: 6px solid transparent;
+            border-left: 6px solid transparent;
+        }
+
+        .min div {
+            width: 8px;
+            height: 140px;
+            background: #888888;
+            position: absolute;
+            bottom: 25px;
+            left: calc( (50px - 8px) /2);
+            transform-origin: center bottom;
+        }
+
+
+        .min div::after {
+            content: "";
+            position: absolute;
+            left: 0px;
+            top: -7px;
+            width: 0;
+            height: 0;
+            border-bottom: 8px solid #888;
+            border-right: 4px solid transparent;
+            border-left: 4px solid transparent;
+        }
+
+        .sec {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3A3A3A;
+            position: absolute;
+            top: calc( (50px - 20px) /2);
+            left: calc( (50px - 20px) /2);
+        }
+
+        .sec div {
+            width: 4px;
+            height: 160px;
+            background: #3A3A3A;
+            position: absolute;
+            left: calc( (20px - 4px) /2);
+            bottom: 10px;
+            border-radius: 2px;
+            transform-origin: center bottom;
+        }
+
+        .kedu {
+            width: 360px;
+            height: 360px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .kedu li {
+            width: 2px;
+            height: 6px;
+            background-color: #888;
+            position: absolute;
+            top: 0;
+            left: calc( (360px - 2px) /2);
+            transform-origin: center 175px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul class="middle">
+            <li class="hour">
+                <div></div>
+            </li>
+            <li class="min">
+                <div></div>
+            </li>
+            <li class="sec">
+                <div></div>
+            </li>
+        </ul>
+
+        <ul class="kedu">
+        </ul>
+
+    </div>
+
+    <script>
+        let box_hour = document.querySelector(".hour div"),
+            box_min = document.querySelector(".min div"),
+            box_sec = document.querySelector(".sec div");
+        setInterval(function() {
+            let date = new Date();
+            let hour = date.getHours(),
+                min = date.getMinutes(),
+                sec = date.getSeconds(),
+                roate_h = hour * 30 + min * 0.5,
+                roate_m = min * 6 + 0.1 * sec,
+                roate_s = sec * 6;
+
+            box_hour.style.transform = "rotate(" + roate_h + "deg)";
+            box_min.style.transform = "rotate(" + roate_m + "deg)";
+            box_sec.style.transform = "rotate(" + roate_s + "deg)";
+        }, 1000);
+
+
+        let kedu = document.querySelector(".kedu");
+        let str = "";
+        for (let i = 0; i < 60; i++) {
+            str += "<li style=\"transform: rotate(" + i * 6 + "deg); \"></li>"
+        }
+        kedu.innerHTML = str;
+
+        let big = document.querySelectorAll(".kedu li");
+
+        for (let j = 0; j < 12; j++) {
+            big[j * 5]['style']['width'] = "4px";
+            big[j * 5]['style']['height'] = "20px";
+            big[j * 5]['style']['background'] = '#3A3A3A';
+
+        }
+    </script>
+</body>
+</html>

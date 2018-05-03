@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旋转相册</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            background: #000;
+            perspective: 800px;
+            overflow: hidden;
+            perspective-origin: top center;
+        }
+
+        .box {
+            width: 240px;
+            height: 135px;
+            margin: auto;
+            position: relative;
+        }
+
+        ul {
+            width: 100%;
+            height: 100%;
+            list-style: none;
+            padding: 0;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        li {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform: rotateY(51deg);
+        }
+
+        li>img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .bot {
+            width: 700px;
+            height: 700px;
+            background-color: rgba(255, 255, 255, .2);
+            position: absolute;
+            border-radius: 50%;
+            left: calc(50% - 350px);
+            top: -350px;
+            transform: rotatex(90deg) translateZ(-100px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <p class="bot"></p>
+        <ul id="box">
+            <li>
+                <img src="./images/01.jpg" alt="">
+            </li>
+            <li>
+                <img src="./images/02.jpg" alt="">
+            </li>
+            <li>
+                <img src="./images/03.jpg" alt="">
+            </li>
+            <li>
+                <img src="./images/04.jpg" alt="">
+            </li>
+            <li>
+                <img src="./images/05.jpg" alt="">
+            </li>
+            <li>
+                <img src="./images/06.jpg" alt="">
+            </li>
+            <li>
+                <img src="./images/07.jpg" alt="">
+            </li>
+        </ul>
+
+    </div>
+
+
+    <script>
+        let oli = document.querySelectorAll("#box li");
+        let obox = document.querySelector("#box");
+
+        oli.forEach((val, idx) => {
+            val.style.transform = "rotateY(" + idx * 51.4 + "deg) translateZ(250px)";
+        });
+
+
+        let roate_x = 0;
+        document.onmousedown = function(e = event) {
+
+            let First_x = e.clientX;
+            let ftime = new Date().getTime();
+            let firsts = First_x;
+
+            this.onmousemove = function(e = event) {
+                let move_x = e.clientX;
+                let dis = move_x - First_x;
+
+                roate_x -= dis * 0.5;
+                obox.style.transform = "rotateY(" + roate_x + "deg)";
+                First_x = move_x;
+            }
+
+            this.onmouseup = function(e = event) {
+                this.onmousemove = this.onmouseup = null;
+                let final_x = e.clientX;
+                let ltime = new Date().getTime();
+
+                let v = (final_x - firsts) / (ltime - ftime);
+
+                let x = setInterval(() => {
+
+                    v *= 0.95;
+                    roate_x -= v * 2;
+                    obox.style.transform = "rotateY(" + roate_x + "deg)";
+                    if (Math.abs(v) < 0.1) {
+                        clearInterval(x);
+                    }
+                }, 13);
+
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>

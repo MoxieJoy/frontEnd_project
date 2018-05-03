@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>体操艺术</title>
+    <style>
+        body {
+            background: url(images/bg3.jpg) no-repeat;
+            overflow: hidden;
+
+        }
+
+        .box {
+            width: 250px;
+            height: 270px;
+            margin: 250px auto;
+            perspective: 450px;
+            perspective-origin: top center;
+        }
+
+        .box ul {
+            transform-style: preserve-3d;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            list-style: none;
+            position: relative;
+            animation: roateIt 18s linear infinite;
+        }
+
+        .box ul li {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border: 1px solid;
+            background: url(images/bg33.jpg);
+            background-size: cover;
+            animation: moveOn 3s steps(11) infinite;
+        }
+
+
+        @keyframes roateIt {
+            to {
+                transform: rotatey(360deg);
+            }
+        }
+
+        @keyframes moveOn {
+            to {
+                background-position-x: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+
+        </ul>
+    </div>
+
+
+    <script>
+        let oli = document.querySelectorAll(".box li");
+
+
+        for (let i = 0; i < oli.length; i++) {
+            oli[i].style.transform = "rotateY(" + (i + 1) * 360 / oli.length + "deg) translateZ(500px)";
+        }
+    </script>
+</body>
+</html>

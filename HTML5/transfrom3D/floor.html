@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方块</title>
+    <style>
+        body {
+            background: #2E426C;
+            perspective: 800px;
+        }
+
+        ul {
+            margin: auto;
+            transform-style: preserve-3d;
+            padding: 10px 0 0 0;
+            list-style: none;
+            height: 480px;
+            width: 650px;
+            box-shadow: 0 0 15px white;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            transform: rotateX(60deg) rotateZ(60deg);
+        }
+
+        li {
+            width: 200px;
+            height: 150px;
+            background: #88AF8C;
+            transition: transform 1s background 1s;
+        }
+
+
+        @keyframes turnn {
+            0% {
+                transform: translateZ(0);
+            }
+
+            25% {
+                transform: translateZ(30px);
+            }
+
+            50% {
+                transform: translateZ(30px) rotateX(180deg);
+            }
+
+            75% {
+                transform: translateZ(30px) rotateX(180deg);
+                background-color: yellow;
+            }
+            100% {
+                transform: translateZ(0) rotateX(180deg);
+                background-color: yellow;
+            }
+        }
+
+        li:hover {
+            animation: turnn 1s linear;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+
+</html>
